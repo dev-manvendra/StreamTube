@@ -1,11 +1,22 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input.jsx";
+import axios from "axios";
 
 function SignUp() {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const create = (data) => console.log(data);
+  const create = (data) => {
+    axios.post("/api/v1/users/register", data)
+    .then(res => {
+      console.log(res.data);
+      
+    })
+    .catch(err =>{
+      console.log(err)
+      alert(err.response?.data?.message || "Registration failed. Please try again.")
+    }) 
+  };
 
   return (
     /* Modal Backdrop with Blur */
