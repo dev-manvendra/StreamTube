@@ -1,7 +1,11 @@
 import { useState, useMemo } from "react";
+import { useOutletContext, useSearchParams } from "react-router-dom";
 import { VIDEOS, CHIPS } from "../data";
 import { Avatar, VideoCard, Skyline } from "../components/ui";
-const Home = ({ q, open }) => {
+const Home = () => {
+  const { open } = useOutletContext();
+  const [searchParams] = useSearchParams();
+  const q = searchParams.get("q") || "";
   const [chip, setChip] = useState("All");
   const list = useMemo(
     () => VIDEOS.filter((v) => (chip === "All" || v.cat === chip) && (v.title + v.ch).toLowerCase().includes(q.toLowerCase())),
