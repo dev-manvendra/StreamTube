@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import { useOutletContext, useParams } from "react-router-dom";
 import { VIDEOS } from "../data";
 import { Avatar, Skyline } from "../components/ui";
-const Watch = ({ v, open }) => {
+const WatchPage = ({ id }) => {
+  const { open } = useOutletContext();
+  const v = VIDEOS.find((x) => String(x.id) === id) || VIDEOS[0];
   const [playing, setPlaying] = useState(false);
   const [pct, setPct] = useState(12);
   const [theater, setTheater] = useState(false);
@@ -134,6 +137,12 @@ const Watch = ({ v, open }) => {
       )}
     </div>
   );
+};
+
+// key={id} resets player/comments state when you switch videos
+const Watch = () => {
+  const { id } = useParams();
+  return <WatchPage key={id} id={id} />;
 };
 
 export default Watch;
