@@ -10,7 +10,7 @@ import Home from "./pages/Home.jsx";
 import App from "./App.jsx";
 import Watch from "./pages/Watch.jsx";
 import Studio from "./pages/Studio.jsx";
-import SignUp from "./pages/SignUp.jsx";
+import SignUp from "./pages/Signup.jsx";
 import "./styles.css";
 
 const router = createBrowserRouter(
