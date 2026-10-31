@@ -1,5 +1,6 @@
-import { configurStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import userReducer from "../features/User/userSlice.js";
-const store = configurStore({
+const store = configureStore({
     reducer : userReducer
 });
+export default store;
