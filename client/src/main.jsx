@@ -10,8 +10,10 @@ import Home from "./pages/Home.jsx";
 import App from "./App.jsx";
 import Watch from "./pages/Watch.jsx";
 import Studio from "./pages/Studio.jsx";
-import SignUp from "./pages/Signup.jsx";
+import SignUp from "./pages/SignUp.jsx";
 import "./styles.css";
+import store from "./app/store.js"
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +29,9 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+
   </React.StrictMode>
 );
