@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Input from "../components/Input.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import {updateIsUserLoggedIn , updateUserInfo} from "../features/User/userSlice.js";
 
 function SignUp() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const isUserLoggedIn = useSelector((state) => state.isUserLoggedIn);
 
   // OTP state
   const [otp, setOtp] = useState("");
@@ -164,6 +167,11 @@ function SignUp() {
     }
 
     setFormMessage("");
+    
+
+    // Prepare form data for registration
+    // registration logic here
+
 
     try {
       const formData = new FormData();
@@ -196,9 +204,9 @@ function SignUp() {
       );
 
       setFormMessage("");
-      setIsLoggedIn(true);
-
-      console.log("Registration response:", response.data);
+      dispatch(updateIsUserLoggedIn(true));
+      dispatch(updateUserInfo(response.data.user));
+      console.log("Registration response:", response.data.user);
     } catch (error) {
       console.error("Registration failed:", error);
 
@@ -210,7 +218,7 @@ function SignUp() {
     }
   };
 
-  if (isLoggedIn) {
+  if (isUserLoggedIn) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
         <div className="relative w-full max-w-lg p-8 bg-[#161E2E] border border-gray-800 rounded-2xl shadow-2xl text-white">
