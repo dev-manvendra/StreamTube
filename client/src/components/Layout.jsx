@@ -2,6 +2,7 @@ import { NavLink, useLocation, useNavigate, useSearchParams } from "react-router
 import { Icon, ICONS } from "./ui";
 import React, {useState} from "react";
 import axios from "axios";
+import {useSelector} from "react-redux"
 
 const NAV = [
   ["home", "Home", "/"],
@@ -123,7 +124,8 @@ export const Sidebar = ({ isExpanded, setIsExpanded }) => {
 };
 
 export const TopBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const user = useSelector(state => state.user)
+  const isLoggedIn = useSelector(state => state.isUserLoggedIn)
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -162,7 +164,10 @@ export const TopBar = () => {
         <input aria-label="Search" placeholder="Search videos, channels, topics" value={q} onChange={onSearch} />
       </div>
       {isLoggedIn? (<>
-      {}
+      <img src={user.avatar || "/profile.png"} className="h-10 w-10 rounded-full object-cover cursor-pointer" alt="Profile" />
+      <span className="ml-2 text-white">{user.name || "User"}</span>
+      <button className="ib" aria-label="Notifications, 4 new"><Icon d={ICONS.bell} /><span className="n">4</span></button>
+
       
       </>): 
       (<> 
