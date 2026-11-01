@@ -16,7 +16,7 @@ export default function App() {
     <div className={`st ${isExpanded ? "sidebar-expanded" : ""}`}>
       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       <main className="main">
-        <TopBar />
+        <TopBar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         <Outlet context={{ open }} />
       </main>
     </div>
