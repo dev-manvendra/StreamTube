@@ -20,14 +20,14 @@ export const Sidebar = ({ isExpanded, setIsExpanded }) => {
       onMouseEnter={()=>setIsExpanded(true)}
       onMouseLeave={()=>setIsExpanded(false)}
       className={`h-full bg-gray-900 text-white transition-all duration-300 flex flex-col pl-2 border-r border-[#0E1014] ${
-        isExpanded ? "w-60" : "w-18"
+        isExpanded ? "w-65" : "w-18"
       }`}
       aria-label="Primary"
     >
       {/* Header with Hamburger Menu Button */}
       <div 
       
-      className="flex items-center h-20 gap-4 px-2 py-3 mb-2">
+      className="flex items-center h-20 gap-2 px-2 py-3 mb-2">
         <button
           onClick={() => setIsExpanded((prev) => !prev)}
 
@@ -78,8 +78,8 @@ export const Sidebar = ({ isExpanded, setIsExpanded }) => {
         </button>
         {isExpanded && <img
         onClick={()=> navigate("/home")}
-         className="h-12 w-auto  cursor-pointer object-contain transition-transform hover:scale-105"
-         src="/StreamTube.png" alt="logo2" />}
+         className="h-14 w-full  cursor-pointer object-contain transition-transform hover:scale-105"
+         src="/StreamTube_Logo.png" alt="logo2" />}
       </div>
 
       {/* Navigation Links */}
@@ -123,7 +123,7 @@ export const Sidebar = ({ isExpanded, setIsExpanded }) => {
   );
 };
 
-export const TopBar = () => {
+export const TopBar = ({ isExpanded, setIsExpanded }) => {
   const user = useSelector(state => state.user)
   const isLoggedIn = useSelector(state => state.isUserLoggedIn)
   const navigate = useNavigate();
@@ -156,9 +156,11 @@ export const TopBar = () => {
 
  return (
     <header className="top">
-      <img src="/logo.png"
-      onClick={()=>{navigate("/home")}} 
-      className="h-12 w-auto object-contain cursor-pointer transition-transform hover:scale-105" alt="Logo" />
+      { !isExpanded?( <div className="flex items-center gap-1">
+        <img src="/StreamTube_Logo.png"
+        onClick={()=>{navigate("/home")}} 
+        className="h-16 w-auto object-contain cursor-pointer transition-transform hover:scale-105" alt="Logo" />
+      </div>) : ""}
       <div className="search">
         <Icon d={ICONS.search} />
         <input aria-label="Search" placeholder="Search videos, channels, topics" value={q} onChange={onSearch} />
@@ -171,9 +173,9 @@ export const TopBar = () => {
       
       </>): 
       (<> 
-      <button className="create text-white hover:text-[#E9B443]!  cursor-pointer" aria-label="Create" onClick={() => navigate("/sign-up")}>Sign-Up</button>
+      <button className="create text-white hover:text-[#E9B443]! hover:underline cursor-pointer" aria-label="Create" onClick={() => navigate("/sign-up")}>Sign-Up</button>
       <span>/</span>
-      <button className="create text-white hover:text-[#E9B443]! cursor-pointer" aria-label="Create" onClick={() => navigate("/sign-up")}>LogIn</button>
+      <button className="create text-white hover:text-[#E9B443]! hover:underline cursor-pointer" aria-label="Create" onClick={() => navigate("/sign-up")}>LogIn</button>
       </>)}
 
       <button className="ib" aria-label="Notifications, 4 new"><Icon d={ICONS.bell} /><span className="n">4</span></button>
