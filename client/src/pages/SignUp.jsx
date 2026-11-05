@@ -83,10 +83,10 @@ function SignUp() {
     try {
       // EXAMPLE ENDPOINT: your backend must implement this route.
       const response = await axios.post(
-        "/api/v1/users/send-email-otp",
+        "/api/v1/otp/send",
         { email: currentEmail }
       );
-
+      
       setOtpSentFor(currentEmail);
       setVerifiedEmail("");
       setOtp("");
@@ -131,7 +131,7 @@ function SignUp() {
     try {
       // EXAMPLE ENDPOINT: your backend must implement this route.
       const response = await axios.post(
-        "/api/v1/users/verify-email-otp",
+        "/api/v1/otp/verify",
         {
           email: currentEmail,
           otp,
