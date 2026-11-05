@@ -1,7 +1,9 @@
-const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
-const Otp = require("../models/Otp");
-const { sendOtpEmail } = require("../utils/sendEmail");
+import crypto from "node:crypto";
+import jwt from "jsonwebtoken";
+import { Otp } from "../models/Otp.model.js";
+import { sendOtpEmail } from "../utils/SendMail.js";
+import { ApiError } from "../utils/ApiErrors.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 const OTP_EXPIRY_MINUTES = 10;
 const MAX_ATTEMPTS = 5;
@@ -25,11 +27,11 @@ function safeEqual(a, b) {
 }
 
 // POST /api/otp/send   body: { email }
-exports.sendOtp = async (req, res) => {
+export const sendOtp = async (req, res) => {
   try {
     const email = String(req.body.email || "").trim().toLowerCase();
     if (!EMAIL_REGEX.test(email)) {
-      return res.status(400).json({ message: "A valid email is required." });
+      throw new ApiError(500, "Server: Please enter valid email")
     }
 
     // Optional: reject if the email is already registered
@@ -69,18 +71,22 @@ exports.sendOtp = async (req, res) => {
     } catch (mailErr) {
       await Otp.deleteOne({ email }); // don't leave an OTP the user never received
       console.error("Email send failed:", mailErr);
-      return res.status(502).json({ message: "Could not send email. Try again." });
+      throw new ApiError(500, "Server: Could not send email. Try again.")
     }
 
-    return res.json({ message: "OTP sent to your email." });
+    return res.status(201).json(
+        
+        
+        new ApiResponse(200, createdUser, "User registered Successfully")
+    )
   } catch (err) {
     console.error("sendOtp error:", err);
-    return res.status(500).json({ message: "Something went wrong." });
+    throw new ApiError(500, "Server: Could not send email. Try again.")
   }
 };
 
 // POST /api/otp/verify   body: { email, otp }
-exports.verifyOtp = async (req, res) => {
+export const verifyOtp = async (req, res) => {
   try {
     const email = String(req.body.email || "").trim().toLowerCase();
     const otp = String(req.body.otp || "").trim();
