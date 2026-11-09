@@ -166,8 +166,8 @@ export const TopBar = ({ isExpanded, setIsExpanded }) => {
         <input aria-label="Search" placeholder="Search videos, channels, topics" value={q} onChange={onSearch} />
       </div>
       {isLoggedIn? (<>
-      <img src={user.avatar || "/profile.png"} className="h-10 w-10 rounded-full object-cover cursor-pointer" alt="Profile" />
-      <span className="ml-2 text-white">{user.name || "User"}</span>
+      <img src= "/logo.png" className="h-10 w-10 rounded-full object-cover cursor-pointer" alt="Profile" />
+      <span className="ml-2 text-white">{user.fullname || "User"}</span>
       <button className="ib" aria-label="Notifications, 4 new"><Icon d={ICONS.bell} /><span className="n">4</span></button>
 
       
