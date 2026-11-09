@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const otpSchema = new mongoose.Schema({
   // One active OTP per email; re-sending overwrites the previous one
@@ -20,4 +20,4 @@ const otpSchema = new mongoose.Schema({
 // (the TTL monitor runs roughly every 60s, so we still check expiry in code)
 otpSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
-module.exports = mongoose.model("Otp", otpSchema);
+export const Otp = mongoose.model("Otp", otpSchema);
