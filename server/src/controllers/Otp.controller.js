@@ -77,7 +77,7 @@ export const sendOtp = async (req, res) => {
     return res.status(201).json(
         
         
-        new ApiResponse(200, createdUser, "User registered Successfully")
+        new ApiResponse(200, "User registered Successfully")
     )
   } catch (err) {
     console.error("sendOtp error:", err);
