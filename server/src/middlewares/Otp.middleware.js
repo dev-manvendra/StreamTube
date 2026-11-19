@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 /**
  * Blocks the request unless it carries a valid verification token
@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
  * Token can be sent as body.verificationToken or the
  * "x-verification-token" header.
  */
-module.exports = function requireVerifiedEmail(req, res, next) {
+export default function requireVerifiedEmail(req, res, next) {
   const token = req.body.verificationToken || req.headers["x-verification-token"];
   if (!token) {
     return res.status(403).json({ message: "Email verification required." });
@@ -28,4 +28,4 @@ module.exports = function requireVerifiedEmail(req, res, next) {
       .status(403)
       .json({ message: "Verification expired or invalid. Please verify your email again." });
   }
-};
+}
