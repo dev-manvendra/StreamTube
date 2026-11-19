@@ -1,6 +1,6 @@
-const express = require("express");
-const rateLimit = require("express-rate-limit");
-const { sendOtp, verifyOtp } = require("../controllers/otpController");
+import express from "express";
+import rateLimit from "express-rate-limit";
+import { sendOtp, verifyOtp } from "../controllers/Otp.controller.js";
 
 const router = express.Router();
 
@@ -21,7 +21,8 @@ const verifyLimiter = rateLimit({
   message: { message: "Too many requests. Try again later." },
 });
 
-router.post("/send", sendLimiter, sendOtp);
-router.post("/verify", verifyLimiter, verifyOtp);
+router.route("/send").post(sendLimiter, sendOtp)
+router.route("/verify").post(verifyLimiter, verifyOtp)
 
-module.exports = router;
+
+export default router;
